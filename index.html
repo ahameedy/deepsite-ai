@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-                            Hameed Pro Tracker
+                            Utopia Tracker Pro
 </title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,16 +47,16 @@
                     <div class="flex items-center space-x-4">
                         <i data-feather="trending-up" class="text-emerald-400 w-8 h-8"></i>
                         <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
-                            Hameed Pro Tracker
+                            Utopia Pro Tracker
 </h1>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <button class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-md font-medium flex items-center space-x-2 transition">
-                            <i data-feather="bell" class="w-4 h-4"></i>
+                        <button id="alerts-btn" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-md font-medium flex items-center space-x-2 transition cursor-pointer">
+<i data-feather="bell" class="w-4 h-4"></i>
                             <span>Alerts</span>
                         </button>
-                        <button class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md font-medium flex items-center space-x-2 transition">
-                            <i data-feather="settings" class="w-4 h-4"></i>
+                        <button id="settings-btn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md font-medium flex items-center space-x-2 transition cursor-pointer">
+<i data-feather="settings" class="w-4 h-4"></i>
                             <span>Settings</span>
                         </button>
                     </div>
@@ -185,23 +185,32 @@
                         </div>
                     </div>
                 </div>
+                <!-- See More Button -->
+                <div class="p-4 text-center">
+                    <button id="see-more-btn" class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-md font-medium transition cursor-pointer">
+                        See More Stocks (20+)
+                    </button>
+                </div>
 
-                <!-- Loading More -->
-                <div class="p-4 text-center text-gray-400">
-                    <div class="inline-flex items-center">
-                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Scanning for more opportunities...
+                <!-- Breaking News Section -->
+                <div class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 mt-6 overflow-hidden">
+                    <div class="bg-gray-700/50 p-4 font-medium text-gray-300 uppercase text-xs tracking-wider">
+                        Breaking Market News
+                    </div>
+                    <div id="breaking-news" class="p-4">
+                        <div class="text-center text-gray-400 py-8">
+                            <i data-feather="alert-circle" class="w-8 h-8 mx-auto mb-2"></i>
+                            <p>Market news updates will appear here</p>
+                            <p class="text-xs mt-1">Powered by Finnhub API</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+</div>
 
             <!-- Stats Dashboard -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
-                <div class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4">
-                    <div class="flex items-center justify-between">
+                <div id="total-alerts-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
+<div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-400 text-sm">Total Alerts</p>
                             <p class="text-2xl font-bold mt-1">24</p>
@@ -214,8 +223,8 @@
                         <div class="h-1 bg-emerald-500 rounded-full" style="width: 65%"></div>
                     </div>
                 </div>
-                <div class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4">
-                    <div class="flex items-center justify-between">
+                <div id="avg-gain-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
+<div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-400 text-sm">Avg. Gain</p>
                             <p class="text-2xl font-bold mt-1 text-emerald-400">+12.4%</p>
@@ -228,8 +237,8 @@
                         <div class="h-1 bg-blue-500 rounded-full" style="width: 45%"></div>
                     </div>
                 </div>
-                <div class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4">
-                    <div class="flex items-center justify-between">
+                <div id="avg-volume-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
+<div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-400 text-sm">Avg. Volume</p>
                             <p class="text-2xl font-bold mt-1">5.7x</p>
@@ -242,8 +251,8 @@
                         <div class="h-1 bg-purple-500 rounded-full" style="width: 72%"></div>
                     </div>
                 </div>
-                <div class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4">
-                    <div class="flex items-center justify-between">
+                <div id="avg-float-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
+<div class="flex items-center justify-between">
                         <div>
                             <p class="text-gray-400 text-sm">Avg. Float</p>
                             <p class="text-2xl font-bold mt-1">8.3M</p>
@@ -265,7 +274,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="flex items-center space-x-2 mb-4 md:mb-0">
                         <i data-feather="bar-chart-2" class="text-emerald-400 w-6 h-6"></i>
-                        <span class="font-medium">Hameed Pro Tracker</span>
+                        <span class="font-medium">Utopia Tracker Pro</span>
 </div>
                     <div class="flex space-x-6">
                         <a href="#" class="text-gray-400 hover:text-white transition">API</a>
@@ -281,10 +290,39 @@
             </div>
         </footer>
     </div>
-
     <script>
+        // Interactive placeholders
+        document.getElementById('alerts-btn').addEventListener('click', function() {
+            console.log('Alerts button clicked - will implement configuration later');
+        });
+
+        document.getElementById('settings-btn').addEventListener('click', function() {
+            console.log('Settings button clicked - will implement configuration later');
+        });
+
+        document.getElementById('see-more-btn').addEventListener('click', function() {
+            console.log('See More clicked - will implement expanded stock view later');
+        });
+
+        // Stats card placeholders
+        document.getElementById('total-alerts-card').addEventListener('click', function() {
+            console.log('Total Alerts card clicked - will implement configuration later');
+        });
+
+        document.getElementById('avg-gain-card').addEventListener('click', function() {
+            console.log('Average Gain card clicked - will implement configuration later');
+        });
+
+        document.getElementById('avg-volume-card').addEventListener('click', function() {
+            console.log('Average Volume card clicked - will implement configuration later');
+        });
+
+        document.getElementById('avg-float-card').addEventListener('click', function() {
+            console.log('Average Float card clicked - will implement configuration later');
+        });
+
         // Initialize Vanta.js background
-        VANTA.NET({
+VANTA.NET({
             el: "#vanta-bg",
             mouseControls: true,
             touchControls: true,
@@ -300,12 +338,52 @@
             spacing: 18.00
         });
 
+        // Limit to 5 stock rows initially
+        document.addEventListener('DOMContentLoaded', function() {
+            const stockRows = document.querySelectorAll('.stock-row');
+            if (stockRows.length > 5) {
+                for (let i = 5; i < stockRows.length; i++) {
+                    stockRows[i].style.display = 'none';
+                }
+            }
+});
+
         // Initialize Feather Icons
         feather.replace();
+        // Modular data functions
+        const dataModule = {
+            simulateLiveUpdates: function() {
+                const changes = document.querySelectorAll('.stock-row .col-span-1:first-child');
+                changes.forEach(change => {
+                    if (Math.random() > 0.7) {
+                        const currentValue = parseFloat(change.textContent.replace('+', '').replace('%', ''));
+                        const newChange = (currentValue + (Math.random() * 2 - 1)).toFixed(1);
+                        change.textContent = `+${Math.max(10, newChange)}%`;
+                        
+                        if (Math.abs(newChange - currentValue) > 0.5) {
+                            change.classList.add('pulse');
+                            setTimeout(() => {
+                                change.classList.remove('pulse');
+                            }, 2000);
+                        }
+                    }
+                });
+            },
+            
+            getBreakingNews: function() {
+                // Placeholder for Finnhub API integration
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        resolve([]); // Will replace with real API call
+                    }, 500);
+                });
+            }
+        };
 
         // Simulate live data updates
         function updateStockData() {
-            const changes = document.querySelectorAll('.stock-row .col-span-1:first-child');
+            dataModule.simulateLiveUpdates();
+const changes = document.querySelectorAll('.stock-row .col-span-1:first-child');
             changes.forEach(change => {
                 if (Math.random() > 0.7) {
                     const currentValue = parseFloat(change.textContent.replace('+', '').replace('%', ''));
@@ -321,11 +399,27 @@
                     }
                 }
             });
-
             setTimeout(updateStockData, 3000 + Math.random() * 4000);
         }
 
-        setTimeout(updateStockData, 5000);
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(updateStockData, 5000);
+            
+            // Initialize breaking news placeholder
+            dataModule.getBreakingNews().then(news => {
+                // Will implement news display later
+            });
+        });
+</script>
+        // Placeholder comments for API integration points
+        /* 
+        TODO: 
+        - Connect to Finnhub API for breaking news
+        - Implement expanded stock view with pagination
+        - Add configuration modals for interactive elements
+        - Replace simulated data with real API calls
+        */
     </script>
 </body>
 </html>
