@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Stocks | Utopia Scanner Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            primary: '#0F1724',
+                            secondary: '#1E293B',
+                            accent: '#334155',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-gray-200 min-h-screen">
+    <custom-navbar></custom-navbar>
+    
+    <main class="container mx-auto px-4 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-xl font-bold">ALL STOCKS</h1>
+            <a href="/" class="flex items-center text-blue-400 hover:text-blue-300 text-sm">
+                <i data-feather="arrow-left" class="mr-2"></i>
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="bg-dark-secondary rounded-lg shadow-lg overflow-hidden">
+            <div class="table-container">
+                <custom-stock-table></custom-stock-table>
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/stock-table.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

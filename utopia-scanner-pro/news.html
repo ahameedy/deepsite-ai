@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market News | Utopia Scanner Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            primary: '#0F1724',
+                            secondary: '#1E293B',
+                            accent: '#334155',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-gray-200 min-h-screen">
+    <custom-navbar></custom-navbar>
+    
+    <main class="container mx-auto px-4 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">MARKET NEWS</h1>
+            <a href="/" class="flex items-center text-blue-400 hover:text-blue-300">
+                <i data-feather="arrow-left" class="mr-2"></i>
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div id="news-filter" class="mb-4">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="px-4 py-2 text-sm font-medium rounded-l-lg bg-dark-accent">
+                    All News
+                </button>
+                <button type="button" class="px-4 py-2 text-sm font-medium border-l border-dark-primary bg-dark-secondary">
+                    Stocks
+                </button>
+                <button type="button" class="px-4 py-2 text-sm font-medium border-l border-dark-primary bg-dark-secondary">
+                    Crypto
+                </button>
+                <button type="button" class="px-4 py-2 text-sm font-medium rounded-r-lg border-l border-dark-primary bg-dark-secondary">
+                    Economy
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-dark-secondary rounded-lg shadow-lg overflow-hidden">
+            <div id="news-container" class="p-4">
+                <div class="animate-pulse space-y-4">
+                    <div class="h-4 bg-dark-accent rounded w-3/4"></div>
+                    <div class="h-4 bg-dark-accent rounded"></div>
+                    <div class="h-4 bg-dark-accent rounded w-5/6"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+        
+        // In a real app, this would fetch from API
+        setTimeout(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const symbol = urlParams.get('symbol');
+            
+            const newsContainer = document.getElementById('news-container');
+            newsContainer.innerHTML = `
+                ${symbol ? `<div class="mb-4 text-blue-400">Showing news for: ${symbol}</div>` : ''}
+                
+                <div class="news-item mb-6 pb-6 border-b border-dark-accent">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm text-gray-400">Bloomberg • 5 min ago</span>
+                        <span class="text-xs bg-dark-accent px-2 py-1 rounded">${symbol || 'AAPL'}</span>
+                    </div>
+                    <h3 class="font-medium mb-2">${symbol || 'Apple'} announces breakthrough in AI technology</h3>
+                    <p class="text-sm text-gray-400 mb-3">${symbol || 'Apple'} unveiled new AI features that could revolutionize how users interact with their devices, sending shares up 3% in pre-market trading.</p>
+                    <a href="#" target="_blank" class="text-blue-400 text-sm hover:text-blue-300">Read more →</a>
+                </div>
+                
+                <div class="news-item mb-6 pb-6 border-b border-dark-accent">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm text-gray-400">CNBC • 12 min ago</span>
+                        <span class="text-xs bg-dark-accent px-2 py-1 rounded">${symbol || 'MSFT'}</span>
+                    </div>
+                    <h3 class="font-medium mb-2">${symbol || 'Microsoft'} expands cloud services with new data centers</h3>
+                    <p class="text-sm text-gray-400 mb-3">${symbol || 'Microsoft'} announced plans to build three new data centers in Europe as demand for cloud computing continues to grow.</p>
+                    <a href="#" target="_blank" class="text-blue-400 text-sm hover:text-blue-300">Read more →</a>
+                </div>
+                
+                <div class="news-item">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm text-gray-400">Reuters • 25 min ago</span>
+                        <span class="text-xs bg-dark-accent px-2 py-1 rounded">${symbol || 'TSLA'}</span>
+                    </div>
+                    <h3 class="font-medium mb-2">${symbol || 'Tesla'} recalls vehicles for software update</h3>
+                    <p class="text-sm text-gray-400 mb-3">${symbol || 'Tesla'} has issued a recall for certain models to address a potential issue with the autopilot system through an over-the-air software update.</p>
+                    <a href="#" target="_blank" class="text-blue-400 text-sm hover:text-blue-300">Read more →</a>
+                </div>
+            `;
+            
+            // In a real app, this would be a WebSocket connection
+            // For demo purposes, we'll simulate updates
+            setInterval(() => {
+                const items = newsContainer.querySelectorAll('.news-item');
+                if (items.length > 0) {
+                    const newItem = items[0].cloneNode(true);
+                    newsContainer.insertBefore(newItem, items[0]);
+                }
+            }, 30000);
+        }, 1500);
+    </script>
+</body>
+</html>

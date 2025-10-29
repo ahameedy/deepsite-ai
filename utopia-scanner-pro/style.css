@@ -1,0 +1,77 @@
+
+/* Base styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+}
+
+/* Compact table styles */
+.stock-table th {
+    @apply py-2 px-3 text-xs uppercase tracking-wider font-medium text-gray-400;
+}
+
+.stock-table td {
+    @apply py-2 px-3 border-t border-dark-accent;
+}
+
+/* Table container with fixed height */
+.table-container {
+    max-height: 700px;
+    overflow-y: auto;
+}
+/* Table styles */
+.stock-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.stock-table thead {
+    position: sticky;
+    top: 0;
+    background-color: #1E293B;
+    z-index: 10;
+}
+
+.stock-table th {
+    @apply py-3 px-4 text-xs uppercase tracking-wider font-medium text-gray-400;
+    text-align: left;
+}
+
+.stock-table th.numeric {
+    text-align: right;
+}
+
+.stock-table td {
+    @apply py-3 px-4 border-t border-dark-accent;
+}
+
+.stock-table tr:hover td {
+    @apply bg-dark-accent;
+}
+
+/* Gap percentage cell */
+.gap-cell {
+    position: relative;
+    color: white;
+    font-weight: 500;
+}
+
+.gap-cell::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.5));
+    z-index: -1;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stock-table th, .stock-table td {
+        @apply py-2 px-2;
+    }
+}
