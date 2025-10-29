@@ -1,425 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-                            Utopia Tracker Pro
-</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <title>Stock Gapper Tracker Pro</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .blur-overlay {
-            backdrop-filter: blur(5px);
-        }
-        .stock-row:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        .pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-    </style>
-</head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-    <div id="vanta-bg" class="fixed inset-0 z-0"></div>
-    <div class="relative z-10">
-        <!-- Header -->
-        <header class="bg-gray-800/80 blur-overlay border-b border-gray-700">
-            <div class="container mx-auto px-4 py-6">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center space-x-4">
-                        <i data-feather="trending-up" class="text-emerald-400 w-8 h-8"></i>
-                        <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
-                            Utopia Pro Tracker
-</h1>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <button id="alerts-btn" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 rounded-md font-medium flex items-center space-x-2 transition cursor-pointer">
-<i data-feather="bell" class="w-4 h-4"></i>
-                            <span>Alerts</span>
-                        </button>
-                        <button id="settings-btn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md font-medium flex items-center space-x-2 transition cursor-pointer">
-<i data-feather="settings" class="w-4 h-4"></i>
-                            <span>Settings</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-4 flex flex-wrap gap-2">
-                    <div class="bg-gray-700/50 px-3 py-1 rounded-full text-sm flex items-center">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2"></span>
-                        <span>Live Data</span>
-                    </div>
-                    <div class="bg-gray-700/50 px-3 py-1 rounded-full text-sm">
-                        <span>Filter: £1-£20</span>
-                    </div>
-                    <div class="bg-gray-700/50 px-3 py-1 rounded-full text-sm">
-                        <span>5x Relative Volume</span>
-                    </div>
-                    <div class="bg-gray-700/50 px-3 py-1 rounded-full text-sm">
-                        <span>+10% Daily</span>
-                    </div>
-                    <div class="bg-gray-700/50 px-3 py-1 rounded-full text-sm">
-                        <span><10M Float</span>
-                    </div>
-                    <div class="bg-gray-700/50 px-3 py-1 rounded-full text-sm">
-                        <span>News Catalyst</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="container mx-auto px-4 py-8">
-            <div class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 overflow-hidden">
-                <!-- Table Header -->
-                <div class="grid grid-cols-12 bg-gray-700/50 p-4 font-medium text-gray-300 uppercase text-xs tracking-wider">
-                    <div class="col-span-1">Change</div>
-                    <div class="col-span-3">Symbol / News</div>
-                    <div class="col-span-1">Price</div>
-                    <div class="col-span-2">Volume</div>
-                    <div class="col-span-2">Float</div>
-                    <div class="col-span-2">Rel Volume</div>
-                    <div class="col-span-1">Action</div>
-                </div>
-
-                <!-- Stock Rows (Sample Data) -->
-                <div class="divide-y divide-gray-700">
-                    <!-- Stock 1 -->
-                    <div class="grid grid-cols-12 p-4 items-center stock-row transition hover:bg-gray-700/30">
-                        <div class="col-span-1 text-emerald-400 font-bold">+14.2%</div>
-                        <div class="col-span-3">
-                            <a href="#" class="text-blue-400 hover:underline">TSLA</a>
-                            <div class="text-xs text-gray-400 truncate">Tesla announces new battery breakthrough</div>
-                        </div>
-                        <div class="col-span-1">$15.42</div>
-                        <div class="col-span-2">
-                            <div class="flex items-center">
-                                <span>8.4M</span>
-                                <span class="ml-2 text-xs bg-emerald-900/50 text-emerald-400 px-2 py-0.5 rounded">5.8x</span>
-                            </div>
-                        </div>
-                        <div class="col-span-2">7.2M</div>
-                        <div class="col-span-2">
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 85%"></div>
-                            </div>
-                            <div class="text-xs text-gray-400 mt-1">5.8x avg</div>
-                        </div>
-                        <div class="col-span-1">
-                            <button class="text-emerald-400 hover:text-emerald-300">
-                                <i data-feather="arrow-up-right" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Stock 2 -->
-                    <div class="grid grid-cols-12 p-4 items-center stock-row transition hover:bg-gray-700/30">
-                        <div class="col-span-1 text-emerald-400 font-bold">+12.8%</div>
-                        <div class="col-span-3">
-                            <a href="#" class="text-blue-400 hover:underline">AAPL</a>
-                            <div class="text-xs text-gray-400 truncate">Apple signs major AR partnership</div>
-                        </div>
-                        <div class="col-span-1">$18.75</div>
-                        <div class="col-span-2">
-                            <div class="flex items-center">
-                                <span>12.1M</span>
-                                <span class="ml-2 text-xs bg-emerald-900/50 text-emerald-400 px-2 py-0.5 rounded">6.3x</span>
-                            </div>
-                        </div>
-                        <div class="col-span-2">9.5M</div>
-                        <div class="col-span-2">
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 95%"></div>
-                            </div>
-                            <div class="text-xs text-gray-400 mt-1">6.3x avg</div>
-                        </div>
-                        <div class="col-span-1">
-                            <button class="text-emerald-400 hover:text-emerald-300">
-                                <i data-feather="arrow-up-right" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Stock 3 -->
-                    <div class="grid grid-cols-12 p-4 items-center stock-row transition hover:bg-gray-700/30">
-                        <div class="col-span-1 text-emerald-400 font-bold pulse">+10.5%</div>
-                        <div class="col-span-3">
-                            <a href="#" class="text-blue-400 hover:underline">GME</a>
-                            <div class="text-xs text-gray-400 truncate">GameStop announces NFT marketplace launch</div>
-                        </div>
-                        <div class="col-span-1">$12.89</div>
-                        <div class="col-span-2">
-                            <div class="flex items-center">
-                                <span>15.7M</span>
-                                <span class="ml-2 text-xs bg-emerald-900/50 text-emerald-400 px-2 py-0.5 rounded">5.2x</span>
-                            </div>
-                        </div>
-                        <div class="col-span-2">8.3M</div>
-                        <div class="col-span-2">
-                            <div class="w-full bg-gray-700 rounded-full h-2">
-                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 75%"></div>
-                            </div>
-                            <div class="text-xs text-gray-400 mt-1">5.2x avg</div>
-                        </div>
-                        <div class="col-span-1">
-                            <button class="text-emerald-400 hover:text-emerald-300">
-                                <i data-feather="arrow-up-right" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- See More Button -->
-                <div class="p-4 text-center">
-                    <button id="see-more-btn" class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-md font-medium transition cursor-pointer">
-                        See More Stocks (20+)
-                    </button>
-                </div>
-
-                <!-- Breaking News Section -->
-                <div class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 mt-6 overflow-hidden">
-                    <div class="bg-gray-700/50 p-4 font-medium text-gray-300 uppercase text-xs tracking-wider">
-                        Breaking Market News
-                    </div>
-                    <div id="breaking-news" class="p-4">
-                        <div class="text-center text-gray-400 py-8">
-                            <i data-feather="alert-circle" class="w-8 h-8 mx-auto mb-2"></i>
-                            <p>Market news updates will appear here</p>
-                            <p class="text-xs mt-1">Powered by Finnhub API</p>
-                        </div>
-                    </div>
-                </div>
-</div>
-
-            <!-- Stats Dashboard -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
-                <div id="total-alerts-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
-<div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-400 text-sm">Total Alerts</p>
-                            <p class="text-2xl font-bold mt-1">24</p>
-                        </div>
-                        <div class="p-3 rounded-lg bg-emerald-900/20 text-emerald-400">
-                            <i data-feather="bell" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
-                        <div class="h-1 bg-emerald-500 rounded-full" style="width: 65%"></div>
-                    </div>
-                </div>
-                <div id="avg-gain-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
-<div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-400 text-sm">Avg. Gain</p>
-                            <p class="text-2xl font-bold mt-1 text-emerald-400">+12.4%</p>
-                        </div>
-                        <div class="p-3 rounded-lg bg-blue-900/20 text-blue-400">
-                            <i data-feather="trending-up" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
-                        <div class="h-1 bg-blue-500 rounded-full" style="width: 45%"></div>
-                    </div>
-                </div>
-                <div id="avg-volume-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
-<div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-400 text-sm">Avg. Volume</p>
-                            <p class="text-2xl font-bold mt-1">5.7x</p>
-                        </div>
-                        <div class="p-3 rounded-lg bg-purple-900/20 text-purple-400">
-                            <i data-feather="activity" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
-                        <div class="h-1 bg-purple-500 rounded-full" style="width: 72%"></div>
-                    </div>
-                </div>
-                <div id="avg-float-card" class="bg-gray-800/80 blur-overlay rounded-xl border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition">
-<div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-gray-400 text-sm">Avg. Float</p>
-                            <p class="text-2xl font-bold mt-1">8.3M</p>
-                        </div>
-                        <div class="p-3 rounded-lg bg-amber-900/20 text-amber-400">
-                            <i data-feather="dollar-sign" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
-                        <div class="h-1 bg-amber-500 rounded-full" style="width: 38%"></div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-gray-800/80 blur-overlay border-t border-gray-700 mt-12">
-            <div class="container mx-auto px-4 py-6">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                        <i data-feather="bar-chart-2" class="text-emerald-400 w-6 h-6"></i>
-                        <span class="font-medium">Utopia Tracker Pro</span>
-</div>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-400 hover:text-white transition">API</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">Docs</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">Pricing</a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">Contact</a>
-                    </div>
-                </div>
-                <div class="mt-6 text-center text-gray-500 text-sm">
-                    <p>Data provided by financial APIs. Not financial advice.</p>
-                    <p class="mt-1">© 2023 StockHawk Pro Tracker. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
-    </div>
+    <script src="https://unpkg.com/feather-icons"></script>
     <script>
-        // Interactive placeholders
-        document.getElementById('alerts-btn').addEventListener('click', function() {
-            console.log('Alerts button clicked - will implement configuration later');
-        });
-
-        document.getElementById('settings-btn').addEventListener('click', function() {
-            console.log('Settings button clicked - will implement configuration later');
-        });
-
-        document.getElementById('see-more-btn').addEventListener('click', function() {
-            console.log('See More clicked - will implement expanded stock view later');
-        });
-
-        // Stats card placeholders
-        document.getElementById('total-alerts-card').addEventListener('click', function() {
-            console.log('Total Alerts card clicked - will implement configuration later');
-        });
-
-        document.getElementById('avg-gain-card').addEventListener('click', function() {
-            console.log('Average Gain card clicked - will implement configuration later');
-        });
-
-        document.getElementById('avg-volume-card').addEventListener('click', function() {
-            console.log('Average Volume card clicked - will implement configuration later');
-        });
-
-        document.getElementById('avg-float-card').addEventListener('click', function() {
-            console.log('Average Float card clicked - will implement configuration later');
-        });
-
-        // Initialize Vanta.js background
-VANTA.NET({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x3f83f8,
-            backgroundColor: 0x111827,
-            points: 10.00,
-            maxDistance: 25.00,
-            spacing: 18.00
-        });
-
-        // Limit to 5 stock rows initially
-        document.addEventListener('DOMContentLoaded', function() {
-            const stockRows = document.querySelectorAll('.stock-row');
-            if (stockRows.length > 5) {
-                for (let i = 5; i < stockRows.length; i++) {
-                    stockRows[i].style.display = 'none';
-                }
-            }
-});
-
-        // Initialize Feather Icons
-        feather.replace();
-        // Modular data functions
-        const dataModule = {
-            simulateLiveUpdates: function() {
-                const changes = document.querySelectorAll('.stock-row .col-span-1:first-child');
-                changes.forEach(change => {
-                    if (Math.random() > 0.7) {
-                        const currentValue = parseFloat(change.textContent.replace('+', '').replace('%', ''));
-                        const newChange = (currentValue + (Math.random() * 2 - 1)).toFixed(1);
-                        change.textContent = `+${Math.max(10, newChange)}%`;
-                        
-                        if (Math.abs(newChange - currentValue) > 0.5) {
-                            change.classList.add('pulse');
-                            setTimeout(() => {
-                                change.classList.remove('pulse');
-                            }, 2000);
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            primary: '#0F1724',
+                            secondary: '#1E293B',
+                            accent: '#334155',
                         }
                     }
-                });
-            },
-            
-            getBreakingNews: function() {
-                // Placeholder for Finnhub API integration
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        resolve([]); // Will replace with real API call
-                    }, 500);
-                });
-            }
-        };
-
-        // Simulate live data updates
-        function updateStockData() {
-            dataModule.simulateLiveUpdates();
-const changes = document.querySelectorAll('.stock-row .col-span-1:first-child');
-            changes.forEach(change => {
-                if (Math.random() > 0.7) {
-                    const currentValue = parseFloat(change.textContent.replace('+', '').replace('%', ''));
-                    const newChange = (currentValue + (Math.random() * 2 - 1)).toFixed(1);
-                    change.textContent = `+${Math.max(10, newChange)}%`;
-                    
-                    // Add pulse effect for significant changes
-                    if (Math.abs(newChange - currentValue) > 0.5) {
-                        change.classList.add('pulse');
-                        setTimeout(() => {
-                            change.classList.remove('pulse');
-                        }, 2000);
-                    }
                 }
-            });
-            setTimeout(updateStockData, 3000 + Math.random() * 4000);
+            }
         }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(updateStockData, 5000);
-            
-            // Initialize breaking news placeholder
-            dataModule.getBreakingNews().then(news => {
-                // Will implement news display later
-            });
-        });
-</script>
-        // Placeholder comments for API integration points
-        /* 
-        TODO: 
-        - Connect to Finnhub API for breaking news
-        - Implement expanded stock view with pagination
-        - Add configuration modals for interactive elements
-        - Replace simulated data with real API calls
-        */
     </script>
+</head>
+<body class="bg-dark-primary text-gray-200 min-h-screen">
+    <custom-navbar></custom-navbar>
+    
+    <main class="container mx-auto px-4 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">TOP GAPPERS</h1>
+            <div class="flex space-x-2">
+                <button class="p-2 rounded hover:bg-dark-accent">
+                    <i data-feather="external-link"></i>
+                </button>
+                <button class="p-2 rounded hover:bg-dark-accent">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+        </div>
+        <div class="bg-dark-secondary rounded-lg shadow-lg overflow-hidden">
+            <div class="table-container">
+                <custom-stock-table></custom-stock-table>
+            </div>
+            <div class="text-center py-3 border-t border-dark-accent">
+                <a href="/all-stocks" class="text-blue-400 hover:text-blue-300 text-sm">
+                    Show More Stocks <i data-feather="chevron-right" class="w-3 h-3 inline"></i>
+                </a>
+            </div>
+        </div>
+<div class="mt-6 bg-dark-secondary rounded-lg shadow-lg p-4">
+            <div class="flex items-center">
+                <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                <h2 class="font-semibold">Market News</h2>
+            </div>
+            <div class="mt-2 text-sm text-gray-400" id="market-news">
+                Loading latest market news...
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="components/stock-table.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+<script src="https://huggingface.co/deepsite/deepsite-badge.js"></script>
 </body>
 </html>
