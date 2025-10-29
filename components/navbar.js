@@ -5,9 +5,8 @@ class CustomNavbar extends HTMLElement {
             <style>
                 nav {
                     background-color: #0F1724;
-                    border-bottom: 1px solid #334155;
                 }
-                .nav-container {
+.nav-container {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -47,7 +46,7 @@ class CustomNavbar extends HTMLElement {
             </style>
             <nav>
                 <div class="nav-container">
-                    <a href="/" class="logo">UtopiaScannerPro</a>
+                    <a href="/" class="logo no-underline">Utopia Scanner Pro</a>
 <div class="nav-links">
                         <a href="/" class="nav-link">Dashboard</a>
                         <a href="/all-stocks" class="nav-link">All Stocks</a>
